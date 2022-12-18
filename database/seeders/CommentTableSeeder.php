@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Comment;
 
 class CommentTableSeeder extends Seeder
 {
@@ -14,6 +15,20 @@ class CommentTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $c = new Comment;
+        $c->id = 1;
+        $c->message = "Nice Pictures";
+        $c->post_id = 1;
+        $c->user_id = 1;
+        $c->save();
+
+        $c = new Comment;
+        $c->id = 2;
+        $c->message = "Wish I was there";
+        $c->post_id = 1;
+        $c->user_id = 2;
+        $c->save();
+
+        Comment::factory()->count(50)->create();    
     }
 }
