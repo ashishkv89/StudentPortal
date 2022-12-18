@@ -14,6 +14,11 @@ class Comment extends Model
         return $this->morphTo();
     }
 
+    public function replies()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
     public  function likes()
     {
         return $this->morphMany(Like::class, 'likeable');
