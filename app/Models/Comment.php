@@ -9,14 +9,14 @@ class Comment extends Model
 {
     use HasFactory;
 
-    public function commentable()
+    public  function user()
     {
-        return $this->morphTo();
+        return $this->belongsTo(User::class);
     }
 
-    public function replies()
+    public  function post()
     {
-        return $this->morphMany(Comment::class, 'commentable');
+        return $this->belongsTo(Post::class);
     }
 
     public  function likes()

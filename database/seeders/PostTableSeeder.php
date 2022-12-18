@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Post;
+use App\Models\User;
 
 class PostTableSeeder extends Seeder
 {
@@ -35,5 +36,7 @@ class PostTableSeeder extends Seeder
         $p->description = "From yesterday's trip";
         $p->user_id = 2;
         $p->save();
+
+        Post::factory()->count(27)->create();
     }
 }

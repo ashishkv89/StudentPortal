@@ -14,19 +14,14 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function image()
     {
         return $this->morphOne(Image::class, 'imageable');
-    }
-
-    public function comments()
-    {
-        return $this->morphMany(Comment::class, 'commentable');
-    }
-
-    public function commentReplies()
-    {
-        return $this->comments()->with('replies');
     }
 
     public function likes()
