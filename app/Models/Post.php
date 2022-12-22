@@ -24,9 +24,4 @@ class Post extends Model
         return $this->morphOne(Image::class, 'imageable');
     }
 
-    public function likes()
-    {
-        return $this->morphMany(Like::class, 'likeable');
-    }
-
 }
