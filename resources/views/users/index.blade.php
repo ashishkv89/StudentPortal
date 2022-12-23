@@ -1,3 +1,5 @@
+<title>Student Portal @yield('title')</title>
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -11,7 +13,7 @@
                 <div class="p-6 text-gray-900">
                     <ul>
                         @foreach ($users as $user)
-                            <li> {{ $user->name }} </li>     
+                            <li><a href='{{route('users.show', ['id' => $user->id])}}'>{{$user->name}} </li>     
                         @endforeach
                     </ul>
                 </div>
