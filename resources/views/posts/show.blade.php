@@ -14,7 +14,7 @@
                     <ul>
                         <li> Title: {{$post->title}}</li>
                         <li> Description: {{$post->description}}</li>
-                        <li> Author: {{$post->user->name}} </li>    
+                        <li> Author: <a href='{{route('users.show', ['id' => $post->user_id])}}'>{{$post->user->name}} </li>    
                         <li> Pictures: <img src="{{$post->image->path}}"> </li>   
                     </ul>
                 </div>

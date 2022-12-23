@@ -13,7 +13,7 @@
                 <div class="p-6 text-gray-900">
                     <ul>
                         @foreach ($posts as $post)
-                            <li><a href='{{route('posts.show', ['id' => $post->id])}}'>{{$post->title}} </li>     
+                            <li><a href='{{route('posts.show', ['id' => $post->id])}}'>{{$post->title}} (Author: <a href='{{route('users.show', ['id' => $post->user_id])}}'>{{$post->user->name}})</li>     
                         @endforeach
                     </ul>
                 </div>
