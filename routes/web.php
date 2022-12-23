@@ -19,8 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/users', [UserController::class, 'index']);
-Route::get('/users/{id}', [UserController::class, 'show']);
+Route::get('/users', [UserController::class, 'index'])->name('user_index');
+Route::get('/users/{id}', [UserController::class, 'show'])->name('user_show');;
 
 Route::get('/dashboard', function () {
     return view('dashboard');

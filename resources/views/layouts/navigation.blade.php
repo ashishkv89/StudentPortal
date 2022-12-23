@@ -21,7 +21,7 @@
                     <x-nav-link :href="route('user_index')" :active="request()->routeIs('user_index')">
                         {{ __('Users') }}
                     </x-nav-link>
-                </div>mm, 
+                </div>
 
             </div>
 
