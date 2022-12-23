@@ -21,14 +21,14 @@ class ImageTableSeeder extends Seeder
         foreach($users as $u)
         {
             $random=rand(10,5000);
-            $u->image()->create(['image' => 'https://picsum.photos/600/400?random='.$random]);
+            $u->image()->create(['picture' => 'https://picsum.photos/600/400?random='.$random]);
         }
 
         $posts = Post::all();
         foreach($posts as $p)
         {
             $random=rand(10,5000);
-            $p->image()->create(['image' => 'https://picsum.photos/600/400?random='.$random]);
+            $p->image()->create(['picture' => 'https://picsum.photos/600/400?random='.$random]);
         }
     }
 }
