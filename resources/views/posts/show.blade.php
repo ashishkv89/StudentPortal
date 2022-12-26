@@ -17,6 +17,14 @@
                         <li> Author: <a href='{{route('users.show', ['id' => $post->user_id])}}'>{{$post->user->name}} </li>    
                         <li> Pictures: <img src="{{$post->image->path}}"> </li>  
                     </ul>
+
+                    <form method="POST"
+                        action="{{ route('posts.destroy', ['id' => $post->id]) }}">
+                        @csrf
+                        @method('DELETE')
+                        <br><button type="submit">Delete</button>
+                    </form>
+                    <p><a href="{{ route('posts.index') }}">Back</a></p>
                 </div>
             </div>
         </div>

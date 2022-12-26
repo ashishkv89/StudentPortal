@@ -27,8 +27,6 @@
                                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
                             </div> <br> 
 
-
-
                             <input type="submit" value="Submit">
                             <a href="{{ route('posts.index') }}"> Cancel</a>
                         </form>

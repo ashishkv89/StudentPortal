@@ -46,10 +46,8 @@ class PostController extends Controller
         $p->description = $validatedData['description'];
         $p->user_id = auth()->user()->id;
         $p->save();
-
-        session()->flash('message', 'The Post is Created');
-        return redirect()->route('posts.index');
-    
+   
+        return redirect()->route('posts.index')->with('message', 'The Post is Created.');
     }
 
     /**
@@ -95,6 +93,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->delete();
+
+        return redirect()->route('posts.index')->with('message', 'The Post is Deleted.');
     }
 }
