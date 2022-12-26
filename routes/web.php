@@ -20,8 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+Route::get('/roles/{id}', [RoleController::class, 'show'])->name('roles.show');;
 
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');;
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
