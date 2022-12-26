@@ -27,7 +27,9 @@
                                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
                             </div> <br> 
 
+                            <x-primary-button class="ml-0">
                             <input type="submit" value="Submit">
+                            </x-primary-button>
                             <a href="{{ route('posts.index') }}"> Cancel</a>
                         </form>
                     </ul>
