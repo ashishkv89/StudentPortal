@@ -21,10 +21,15 @@ Route::get('/', function () {
 });
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
 Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');;
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+Route::post('posts', [PostController::class, 'store'])->name('posts.store');
 Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

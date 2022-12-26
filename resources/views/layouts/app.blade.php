@@ -29,7 +29,15 @@
 
             <!-- Page Content -->
             <main>
+
+                <div class="lg:px-8">
+                @if (session('message'))
+                <br><p><b>{{ session('message') }}</b></p>
+                @endif
+                </div>
+
                 {{ $slot }}
+
             </main>
         </div>
     </body>

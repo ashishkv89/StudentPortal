@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->string('path')->nullable();
-            $table->morphs('imageable');
+            $table->nullableMorphs('imageable');
         });
     }
 
