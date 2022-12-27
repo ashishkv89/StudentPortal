@@ -25,7 +25,7 @@
                                 <x-input-label for="description" :value="('Description')" />
                                 <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" value="{{ old('description') }}" required />
                                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
-                            </div> <br> 
+                            </div> <br>
 
                             <x-primary-button class="ml-0">
                             <input type="submit" value="SUBMIT">

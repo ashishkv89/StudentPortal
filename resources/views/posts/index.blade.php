@@ -28,7 +28,7 @@
                     <b> Hello {{ Auth::user()->name }}, stay engaged with your school activities !</b>
                     <br><br><br>
                         @foreach ($posts as $post)
-                            <li><a href='{{route('posts.show', ['id' => $post->id])}}'>{{$post->title}} </a> [Author: <a href='{{route('users.show', ['id' => $post->user_id])}}'>{{$post->user->name}}]</li> </a><br>   
+                            <li><a href='{{route('posts.show', ['id' => $post->id])}}'>{{$post->title}} </a> <font color="grey">[Author: <a href='{{route('users.show', ['id' => $post->user_id])}}'>{{$post->user->name}}</a>, Created: {{$post->created_at}}]</font></li><br>   
                         @endforeach
                         {{ $posts->links() }}
                 </div>
