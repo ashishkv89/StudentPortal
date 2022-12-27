@@ -29,7 +29,6 @@
                             @endif                              
                         </li>
                         <li> Role: {{$user->role->name}} </li>    
-                        <li> Profile Picture: <img src="{{$user->image->path}}"> </li>   
                     </ul>
                 </div>
             </div>

@@ -16,8 +16,8 @@
                         <li> {{$post->description}} </li><br>
                         <li><b> Author: </b><a href='{{route('users.show', ['id' => $post->user_id])}}'>{{$post->user->name}} </a></li>
                         <li><b> Created: </b>{{$post->created_at}} </li><br>   
-                        @if ($post->image)
-                            <li> <img src="{{$post->image->path}}"> </li><br>  
+                        @if ($post->path)
+                            <li> <img src="{{$post->path}}"> </li><br>  
                         @endif
                     </ul>
 

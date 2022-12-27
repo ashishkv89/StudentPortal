@@ -20,6 +20,7 @@ class PostTableSeeder extends Seeder
         $p->id = 1;
         $p->title = "Photo";
         $p->description = "From yesterday's trip";
+        $p->path = "https://picsum.photos/600/400?random=1";
         $p->user_id = 1;
         $p->save();
 
@@ -27,6 +28,7 @@ class PostTableSeeder extends Seeder
         $p->id = 2;
         $p->title = "Pictures";
         $p->description = "From today's trip";
+        $p->path = "https://picsum.photos/600/400?random=2";
         $p->user_id = 1;
         $p->save();
 
@@ -34,6 +36,7 @@ class PostTableSeeder extends Seeder
         $p->id = 3;
         $p->title = "Click";
         $p->description = "From yesterday's trip";
+        $p->path = "https://picsum.photos/600/400?random=3";
         $p->user_id = 2;
         $p->save();
 

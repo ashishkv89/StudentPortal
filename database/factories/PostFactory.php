@@ -20,6 +20,7 @@ class PostFactory extends Factory
         return [
             'title' => fake()->realText(50),
             'description' => fake()->realText(200),
+            'path' => fake()->imageUrl(),
             'user_id' => fake()->numberBetween(1, User::count()),
         ];
     }
