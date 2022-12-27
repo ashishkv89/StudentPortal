@@ -28,7 +28,10 @@
                                 Unknown
                             @endif                              
                         </li>
-                        <li> Role: {{$user->role->name}} </li>    
+                        <li> Role: {{$user->role->name}} </li>   
+                        @if ($user->photo)
+                        <li> Profile Picture: <img src="{{$user->photo}}"> </li>  
+                        @endif   
                     </ul>
                 </div>
             </div>
