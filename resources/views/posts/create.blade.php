@@ -28,7 +28,7 @@
                             </div> <br> 
 
                             <x-primary-button class="ml-0">
-                            <input type="submit" value="Submit">
+                            <input type="submit" value="SUBMIT">
                             </x-primary-button>
                             <a href="{{ route('posts.index') }}"> Cancel</a>
                         </form>

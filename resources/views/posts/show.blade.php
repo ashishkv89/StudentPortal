@@ -12,19 +12,24 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <ul>
-                        <li> Title: {{$post->title}}</li>
-                        <li> Description: {{$post->description}}</li>
-                        <li> Author: <a href='{{route('users.show', ['id' => $post->user_id])}}'>{{$post->user->name}} </li>    
-                        <li> Pictures: <img src="{{$post->image->path}}"> </li>  
+                        <li><big><b> {{$post->title}} </li></b></big><br>
+                        <li> {{$post->description}}</li><br>
+                        <li> Author: <a href='{{route('users.show', ['id' => $post->user_id])}}'>{{$post->user->name}} </li><br>    
+                        <li> <img src="{{$post->image->path}}"> </li><br>  
                     </ul>
 
                     <form method="POST"
                         action="{{ route('posts.destroy', ['id' => $post->id]) }}">
                         @csrf
                         @method('DELETE')
-                        <br><button type="submit">Delete</button>
+                        <x-primary-button class="ml-0">
+                            <input type="submit" value="DELETE">
+                        </x-primary-button>
                     </form>
-                    <p><a href="{{ route('posts.index') }}">Back</a></p>
+                    <x-primary-button class="ml-0">
+                        <p><a href="{{ route('posts.index') }}">BACK</a></p>
+                    </x-primary-button>
+
                 </div>
             </div>
         </div>
