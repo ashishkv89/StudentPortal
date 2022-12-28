@@ -31,7 +31,8 @@
                             <div class="form-group">
                                 <x-input-label for="image" :value="('Image')" />
                                         <input type="file" name="image" id="image" class="block mt-1 w-full">
-                            </div> <br><br>
+                                        <x-input-error :messages="$errors->get('image')" class="mt-2" />
+                                    </div> <br><br>
 
                             <x-primary-button class="ml-0">
                             <input type="submit" value="SUBMIT">
