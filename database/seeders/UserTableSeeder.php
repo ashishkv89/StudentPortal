@@ -23,8 +23,6 @@ class UserTableSeeder extends Seeder
         $u->password = bcrypt("Password1");
         $u->remember_token = "R1a4C5QxBD";
         $u->phone = "+447949337111";
-        $u->address = "71 St Helens Avenue\nSwansea\nSA1 4NN";
-        $u->photo = "https://picsum.photos/600/400?random=1";
         $u->role_id = 1;
         $u->save();
 
@@ -36,8 +34,6 @@ class UserTableSeeder extends Seeder
         $u->password = bcrypt("Password2");
         $u->remember_token = "z1HbdkNlEc";
         $u->phone = "+447949337112";
-        $u->address = "72 St Helens Avenue\nSwansea\nSA1 4NN";
-        $u->photo = "https://picsum.photos/600/400?random=2";
         $u->role_id = 2;
         $u->save();
 
@@ -49,11 +45,9 @@ class UserTableSeeder extends Seeder
         $u->password = bcrypt("Password3");
         $u->remember_token = "LhEVyDyI4Z";
         $u->phone = "+447949337113";
-        $u->address = "72 St Helens Avenue\nSwansea\nSA1 4NN";
-        $u->photo = "https://picsum.photos/600/400?random=3";
         $u->role_id = 2;
         $u->save();
 
-        User::factory()->count(17)->create();
+        User::factory()->count(7)->create();
     }
 }
