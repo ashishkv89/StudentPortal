@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(10);
+        $posts = Post::orderby('created_at', 'desc')->paginate(10);
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -39,11 +39,23 @@ class PostController extends Controller
         $validatedData = $request->validate([
             'title' => 'required',
             'description' => 'required',
+            'image' => 'nullable | mimes:jpg,jpeg,png,gif',
         ]);
+
+        $imagePath=null;
+        if($request->hasFile('image'))
+        {
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $filenameToSave = $filename.'_'.time().'.'.$extension;
+            $imagePath = $request->file('image')->storeAs('images', $filenameToSave, 'public');
+        }
 
         $p = new Post;
         $p->title = $validatedData['title'];
         $p->description = $validatedData['description'];
+        $p->image = $imagePath;
         $p->user_id = auth()->user()->id;
         $p->save();
    

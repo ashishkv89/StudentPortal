@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->longText('title');
             $table->longText('description');
-            $table->string('image');
+            $table->string('image')->nullable();
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
