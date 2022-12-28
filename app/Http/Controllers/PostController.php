@@ -82,7 +82,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('posts.edit')->with('post', $post);
     }
 
     /**
@@ -94,7 +95,30 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'image' => 'nullable | mimes:jpg,jpeg,png,gif',
+        ]);
+
+        $imagePath=null;
+        if($request->hasFile('image'))
+        {
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $filenameToSave = $filename.'_'.time().'.'.$extension;
+            $imagePath = $request->file('image')->storeAs('images', $filenameToSave, 'public');
+        }
+
+        $p = new Post;
+        $p->title = $validatedData['title'];
+        $p->description = $validatedData['description'];
+        $p->image = $imagePath;
+        $p->user_id = auth()->user()->id;
+        $p->save();
+   
+        return redirect()->route('posts.index')->with('message', 'The Post is Edited.');
     }
 
     /**
@@ -106,8 +130,18 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
-        $post->delete();
-
-        return redirect()->route('posts.index')->with('message', 'The Post is Deleted.');
+        if(auth()->user()->id == $post->user_id)
+        {
+            $post->delete();
+            return redirect()->route('posts.index')->with('message', 'You have Deleted the Post. (Own Post)');
+        }
+        elseif (auth()->user()->role_id == 1) {
+            $post->delete();
+            return redirect()->route('posts.index')->with('message', 'You have Deleted the Post. (Teacher with Administrator Privilege)');
+        }
+        else 
+        {
+            return redirect()->route('posts.index')->with('message', 'Sorry, you do not have Access to Delete another student\'s Post.');
+        }
     }
 }
