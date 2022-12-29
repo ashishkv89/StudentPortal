@@ -14,15 +14,16 @@
                     <ul>
                         <form method="POST" action="{{ route('posts.update', ['id' => $post->id]) }}" enctype="multipart/form-data">
                             @csrf
+                            @method('put')
                             <div>
                                 <x-input-label for="title" :value="('Title')" />
-                                <x-text-input id="title" class="block mt-1 w-full" type="text" name="title" value="{{ old('title') }}" required />
+                                <x-text-input id="title" class="block mt-1 w-full" type="text" name="title" value="{{$post->title}}" required />
                                 <x-input-error :messages="$errors->get('title')" class="mt-2" />
                             </div> <br> 
 
                             <div>
                                 <x-input-label for="description" :value="('Description')" />
-                                <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" value="{{ old('description') }}" required />
+                                <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" value="{{$post->description}}" required />
                                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
                             </div> <br>
 
