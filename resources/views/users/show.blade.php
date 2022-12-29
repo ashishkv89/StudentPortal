@@ -20,13 +20,7 @@
                             @else
                                 Unknown
                             @endif                              
-                        </li>
-                        <li> Address: 
-                            @if ($user->address)
-                                {{$user->address}}             
-                            @else
-                                Unknown
-                            @endif                              
+                        </li>                           
                         </li>
                         <li> Role: {{$user->role->name}} </li>   
                     </ul>
@@ -34,4 +28,5 @@
             </div>
         </div>
     </div>
+
 </x-app-layout>

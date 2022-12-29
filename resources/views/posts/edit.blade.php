@@ -37,7 +37,7 @@
                             <x-primary-button class="ml-0">
                             <input type="submit" value="UPDATE">
                             </x-primary-button>
-                            <a href="{{ route('posts.index') }}"> Cancel</a>
+                            <a href="{{ route('posts.show', ['id' => $post->id]) }}"> Cancel</a>
                         </form>
                     </ul>
                 </div>

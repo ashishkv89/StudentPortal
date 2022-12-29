@@ -52,14 +52,14 @@ class PostController extends Controller
             $imagePath = $request->file('image')->storeAs('images', $filenameToSave, 'public');
         }
 
-        $p = new Post;
-        $p->title = $validatedData['title'];
-        $p->description = $validatedData['description'];
-        $p->image = $imagePath;
-        $p->user_id = auth()->user()->id;
-        $p->save();
+        $post = new Post;
+        $post->title = $validatedData['title'];
+        $post->description = $validatedData['description'];
+        $post->image = $imagePath;
+        $post->user_id = auth()->user()->id;
+        $post->save();
    
-        return redirect()->route('posts.index')->with('message', 'The Post is Created.');
+        return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'The Post is Created.');
     }
 
     /**
@@ -119,7 +119,7 @@ class PostController extends Controller
                     $p->image = $imagePath;
                 }
             $p->save();
-            return redirect()->route('posts.index')->with('message', 'You have Edited the Post. (Own Post)');
+            return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'You have Edited the Post. (Own Post)');
         }
         elseif (auth()->user()->role_id == 1) 
         {
@@ -143,11 +143,11 @@ class PostController extends Controller
                  $p->image = $imagePath;
              }
             $p->save();
-            return redirect()->route('posts.index')->with('message', 'You have Edited the Post. (Teacher with Administrator Privilege)');
+            return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'You have Edited the Post. (Teacher with Administrator Privilege)');
         }
         else 
         {
-            return redirect()->route('posts.index')->with('message', 'Sorry, you do not have Access to Edit another student\'s Post.');
+            return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'Sorry, you do not have Access to Edit another student\'s Post.');
         }
 
     }
