@@ -101,7 +101,8 @@ class PostController extends Controller
             'image' => 'nullable | mimes:jpg,jpeg,png,gif',
         ]);
 
-        $imagePath=null;
+        $post = Post::find($id);
+        $imagePath=$post->image;
         if($request->hasFile('image'))
         {
             $filenameWithExt = $request->file('image')->getClientOriginalName();
