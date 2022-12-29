@@ -17,12 +17,11 @@
                         <li><b> Author: </b><a href='{{route('users.show', ['id' => $post->user_id])}}'>{{$post->user->name}} </a></li>
                         <li><b> Created: </b>{{$post->created_at}} </li><br>   
                         @if ($post->image)
-                            <li> <img src="/storage/{{$post->image}}"> </li><br>  
+                            <li> <img src="/storage/{{$post->image}}" width="250"> </li><br>  
                         @endif
                     </ul>
 
-                    <form method="POST"
-                        action="{{ route('posts.destroy', ['id' => $post->id]) }}">
+                    <form method="POST" action="{{ route('posts.destroy', ['id' => $post->id]) }}">
                         @csrf
                         @method('DELETE')
                         <x-primary-button class="ml-0">
@@ -43,4 +42,41 @@
             </div>
         </div>
     </div>
+
+    <div class="py-0">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <b> Comments </b>
+                    <br><br>
+                    @if (count($post->comments) > 0)
+                    @foreach ($post->comments as $comment) 
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <p>{{ $comment->message }}</p>
+                                <small>{{ $comment->user->name }} ({{ $comment->created_at }})</small>
+                            </div>
+                            <div class="card-body">
+                                    @if (Auth::user()->id == $comment->user_id || Auth::user()->role_id == 1)
+                                        <a href="/comments/{{$comment->id}}" style="float:left" class="btn btn-primary">Edit</a>
+                                        <form method="POST" action="" >
+                                            @csrf
+                                            @method('DELETE')
+                                            <input type="submit" style="float:right" value="Delete" class="btn btn-danger">
+                                        </form><br>
+                                    @endif                                
+                            </div>
+                        </div> <br>
+                    @endforeach 
+                    @else
+                        <br>
+                        Be First to comment on this post
+                    @endif
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </x-app-layout>

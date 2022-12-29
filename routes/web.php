@@ -28,8 +28,14 @@ Route::get('/posts/create', [PostController::class, 'create'])->name('posts.crea
 Route::post('posts', [PostController::class, 'store'])->name('posts.store');
 Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
 Route::get('/posts/edit/{id}', [PostController::class, 'edit'])->name('posts.edit');
-Route::put('posts/{id}', [PostController::class, 'update'])->name('posts.update');
+Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
 Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+
+Route::get('/comments', [CommentController::class, 'index'])->name('comments.index');
+Route::get('/comments/create', [CommentController::class, 'create'])->name('comments.create');
+Route::post('comments', [CommentController::class, 'store'])->name('comments.store');
+Route::get('/comments/{id}', [CommentController::class, 'show'])->name('comments.show');
+Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
 
 Route::get('/dashboard', function () {

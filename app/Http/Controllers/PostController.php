@@ -104,10 +104,9 @@ class PostController extends Controller
                   'description' => 'required',
                    'image' => 'nullable | mimes:jpg,jpeg,png,gif',
                ]);
-               $p = Post::findOrFail($id);
-               $p->title = $validatedData['title'];
-               $p->description = $validatedData['description'];
-               $p->user_id = auth()->user()->id;
+               $post->title = $validatedData['title'];
+               $post->description = $validatedData['description'];
+               $post->user_id = auth()->user()->id;
 
                if($request->hasFile('image'))
                {
@@ -116,9 +115,9 @@ class PostController extends Controller
                     $extension = $request->file('image')->getClientOriginalExtension();
                     $filenameToSave = $filename.'_'.time().'.'.$extension;
                     $imagePath = $request->file('image')->storeAs('images', $filenameToSave, 'public');
-                    $p->image = $imagePath;
+                    $post->image = $imagePath;
                 }
-            $p->save();
+                $post->save();
             return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'You have Edited the Post. (Own Post)');
         }
         elseif (auth()->user()->role_id == 1) 
@@ -128,10 +127,9 @@ class PostController extends Controller
                'description' => 'required',
                 'image' => 'nullable | mimes:jpg,jpeg,png,gif',
             ]);
-            $p = Post::findOrFail($id);
-            $p->title = $validatedData['title'];
-            $p->description = $validatedData['description'];
-            $p->user_id = auth()->user()->id;
+            $post->title = $validatedData['title'];
+            $post->description = $validatedData['description'];
+            $post->user_id = auth()->user()->id;
 
             if($request->hasFile('image'))
             {
@@ -140,9 +138,9 @@ class PostController extends Controller
                  $extension = $request->file('image')->getClientOriginalExtension();
                  $filenameToSave = $filename.'_'.time().'.'.$extension;
                  $imagePath = $request->file('image')->storeAs('images', $filenameToSave, 'public');
-                 $p->image = $imagePath;
+                 $post->image = $imagePath;
              }
-            $p->save();
+             $post->save();
             return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'You have Edited the Post. (Teacher with Administrator Privilege)');
         }
         else 
