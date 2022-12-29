@@ -14,7 +14,7 @@
                     <ul>
                         <form method="POST" action="{{ route('posts.update', ['id' => $post->id]) }}" enctype="multipart/form-data">
                             @csrf
-                            @method('put')
+                            @method('PUT')
                             <div>
                                 <x-input-label for="title" :value="('Title')" />
                                 <x-text-input id="title" class="block mt-1 w-full" type="text" name="title" value="{{$post->title}}" required />

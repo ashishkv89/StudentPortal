@@ -101,8 +101,11 @@ class PostController extends Controller
             'image' => 'nullable | mimes:jpg,jpeg,png,gif',
         ]);
 
-        $post = Post::find($id);
-        $imagePath=$post->image;
+        $p = Post::find($id);
+        $p->title = $validatedData['title'];
+        $p->description = $validatedData['description'];
+        $p->user_id = auth()->user()->id;
+
         if($request->hasFile('image'))
         {
             $filenameWithExt = $request->file('image')->getClientOriginalName();
@@ -110,13 +113,9 @@ class PostController extends Controller
             $extension = $request->file('image')->getClientOriginalExtension();
             $filenameToSave = $filename.'_'.time().'.'.$extension;
             $imagePath = $request->file('image')->storeAs('images', $filenameToSave, 'public');
+            $p->image = $imagePath;
         }
 
-        $p = new Post;
-        $p->title = $validatedData['title'];
-        $p->description = $validatedData['description'];
-        $p->image = $imagePath;
-        $p->user_id = auth()->user()->id;
         $p->save();
    
         return redirect()->route('posts.index')->with('message', 'The Post is Edited.');
