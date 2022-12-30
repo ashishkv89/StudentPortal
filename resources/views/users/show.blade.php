@@ -29,4 +29,31 @@
         </div>
     </div>
 
+    <div class="py-0">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+
+                        @if (count($user->posts) > 0)
+                        <b> Click to view {{$user->name}}'s Posts </b><br><br>
+                        @foreach ($user->posts as $post) 
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <li><a href='{{ route('posts.show', ['id' => $post->id]) }}'>{{ $post->title }} <small><font color="grey">[Created At: {{ $post->created_at }}]</font></small></li></a>
+                                </div>
+                            </div> <br>
+                        @endforeach 
+                        @else
+                        <b> User has not created any posts. </b>
+                        @endif  
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
 </x-app-layout>

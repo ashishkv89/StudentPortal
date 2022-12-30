@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
 
 class PostController extends Controller
 {
@@ -59,7 +60,7 @@ class PostController extends Controller
         $post->user_id = auth()->user()->id;
         $post->save();
    
-        return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'The Post is Created.');
+        return redirect()->route('dashboard')->with('message', 'The Post is Created.');
     }
 
     /**
@@ -124,7 +125,7 @@ class PostController extends Controller
         {
             $validatedData = $request->validate([
                 'title' => 'required',
-               'description' => 'required',
+                'description' => 'required',
                 'image' => 'nullable | mimes:jpg,jpeg,png,gif',
             ]);
             $post->title = $validatedData['title'];
@@ -162,7 +163,7 @@ class PostController extends Controller
         if(auth()->user()->id == $post->user_id)
         {
             $post->delete();
-            return redirect()->route('posts.index')->with('message', 'You have Deleted the Post. (Own Post)');
+            return redirect()->route('dashboard')->with('message', 'You have Deleted the Post. (Own Post)');
         }
         elseif (auth()->user()->role_id == 1) {
             $post->delete();
@@ -170,7 +171,7 @@ class PostController extends Controller
         }
         else 
         {
-            return redirect()->route('posts.index')->with('message', 'Sorry, you do not have Access to Delete another student\'s Post.');
+            return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'Sorry, you do not have Access to Delete another student\'s Post.');
         }
     }
 }

@@ -25,10 +25,10 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <b> Hello {{ Auth::user()->name }}, stay engaged with your school activities !</b>
+                    <b> Hello {{ Auth::user()->name }}, click to view the posts !</b>
                     <br><br><br>
                         @foreach ($posts as $post)
-                            <li><a href='{{route('posts.show', ['id' => $post->id])}}'>{{$post->title}} </a> <font color="grey">[Author: <a href='{{route('users.show', ['id' => $post->user_id])}}'>{{$post->user->name}}</a>, Created: {{$post->created_at}}]</font></li><br>   
+                            <li><a href='{{ route('posts.show', ['id' => $post->id]) }}'>{{$post->title}} </a> <font color="grey">[Author: <a href='{{route('users.show', ['id' => $post->user_id])}}'>{{$post->user->name}}</a>, Created: {{$post->created_at}}]</font></li><br>   
                         @endforeach
                         {{ $posts->links() }}
                 </div>

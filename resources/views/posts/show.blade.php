@@ -69,8 +69,7 @@
                         </div> <br>
                     @endforeach 
                     @else
-                        <br>
-                        Be First to comment on this post
+                        Be first to comment on this post
                     @endif
 
                 </div>
