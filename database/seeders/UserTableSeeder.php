@@ -48,6 +48,6 @@ class UserTableSeeder extends Seeder
         $u->role_id = 2;
         $u->save();
 
-        User::factory()->count(7)->create();
+        User::factory()->count(12)->create();
     }
 }

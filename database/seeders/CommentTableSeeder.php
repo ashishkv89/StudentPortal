@@ -17,7 +17,7 @@ class CommentTableSeeder extends Seeder
     {
         $c = new Comment;
         $c->id = 1;
-        $c->message = "Nice Pictures";
+        $c->message = "Excellent article !";
         $c->post_id = 1;
         $c->user_id = 1;
         $c->save();
@@ -29,6 +29,6 @@ class CommentTableSeeder extends Seeder
         $c->user_id = 2;
         $c->save();
 
-        Comment::factory()->count(50)->create();    
+        Comment::factory()->count(98)->create();    
     }
 }
