@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\User;
 
 class CommentController extends Controller
 {
@@ -39,7 +40,10 @@ class CommentController extends Controller
     {
         $validatedData = $request->validate([
             'message' => 'required',
+            'post_id' => 'required'
         ]);
+
+        $post = Post::findorFail($validatedData['post_id']);
 
         $comment = new Comment;
         $comment->message = $validatedData['message'];
@@ -47,7 +51,7 @@ class CommentController extends Controller
         $comment->user_id = auth()->user()->id;
         $comment->save();
    
-        return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'Comment Added to Post.');
+        return back()->with('message', 'Comment Added to Post.');
     }
 
     /**
@@ -81,18 +85,21 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $validatedData = $request->validate([
             'message' => 'required',
-            
-            $comment = Comment::findOrFail($id);
+            'post_id' => 'required'
+        ]);
+
+        $post = Post::findorFail($validatedData['post_id']);
+
+            $comment = new Comment;
+            $comment->message = $validatedData['message'];
             $comment->post_id = $post->id;
             $comment->user_id = auth()->user()->id;
             $comment->save();
             return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'You have Edited the Comment');
-        ]);
-
 
     }
 
@@ -105,22 +112,23 @@ class CommentController extends Controller
     public function destroy($id)
     {
         $comment = Comment::findOrFail($id);
-        if(auth()->user()->id == $comment->user_id)
+        $post = $comment->post;
+        if (auth()->user()->id == $post->user_id) {
+            $comment->delete();
+            return back()->with('message', 'You have Deleted the Comment. (Own Post)');
+        }
+        elseif(auth()->user()->id == $comment->user_id)
         {
             $comment->delete();
-            return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'You have Deleted the Comment. (Own Comment)');
+            return back()->with('message', 'You have Deleted the Comment. (Own Comment)');
         }
         elseif (auth()->user()->role_id == 1) {
             $comment->delete();
-            return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'You have Deleted the Comment. (Teacher with Administrator Privilege)');
-        }
-        elseif (auth()->user()->id == $post->user_id) {
-            $comment->delete();
-            return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'You have Deleted the Comment. (Own Post)');
+            return back()->with('message', 'You have Deleted the Comment. (Teacher with Administrator Privilege)');
         }
         else 
         {
-            return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'Sorry, you do not have Access to Delete another student\'s Comment.');
+            return back()->with('message', 'Sorry, you do not have Access to Delete another student\'s Comment.');
         }
     }
 }

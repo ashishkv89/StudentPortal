@@ -47,13 +47,16 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <b> Comment on the Post </b>
-                    <form action="/posts/{{ $post->id }}/comments" method="post">
+                    <b> Comment on the Post </b><br><br>
+                    <form method="POST" action="{{ route('comments.store') }}" >
                         @csrf
                         <div class="form-group">
-                            <textarea name="message" cols="30" rows="3" class="form-control" placeholder="Type Something here"></textarea>
-                        </div>
-                        <input type="submit" value="Comment" class="btn btn-primary">
+                            <input type="hidden" name="post_id" value="{{ $post->id }}">
+                            <textarea name="message" cols="50" rows="3" type="text" class="form-control" placeholder="Type your comment here"></textarea>
+                        </div><br>
+                        <x-secondary-button class="ml-0">
+                            <input type="submit" value="SUBMIT">
+                        </x-secondary-button>
                     </form>
                 </div>
             </div>
@@ -76,7 +79,7 @@
                             <div class="card-body">
                                     @if (Auth::user()->id == $comment->user_id || Auth::user()->role_id == 1 || Auth::user()->id == $post->user_id)
                                         <a href="/comments/{{$comment->id}}" style="float:left" class="btn btn-primary">Edit</a>
-                                        <form method="POST" action="" >
+                                        <form method="POST" action="{{ route('comments.destroy', ['id' => $comment->id]) }}" >
                                             @csrf
                                             @method('DELETE')
                                             <input type="submit" style="float:right" value="Delete" class="btn btn-danger">
