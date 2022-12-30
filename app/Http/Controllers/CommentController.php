@@ -114,6 +114,10 @@ class CommentController extends Controller
             $comment->delete();
             return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'You have Deleted the Comment. (Teacher with Administrator Privilege)');
         }
+        elseif (auth()->user()->id == $post->user_id) {
+            $comment->delete();
+            return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'You have Deleted the Comment. (Own Post)');
+        }
         else 
         {
             return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'Sorry, you do not have Access to Delete another student\'s Comment.');

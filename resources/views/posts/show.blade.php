@@ -47,6 +47,23 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    <b> Comment on the Post </b>
+                    <form action="/posts/{{ $post->id }}/comments" method="post">
+                        @csrf
+                        <div class="form-group">
+                            <textarea name="message" cols="30" rows="3" class="form-control" placeholder="Type Something here"></textarea>
+                        </div>
+                        <input type="submit" value="Comment" class="btn btn-primary">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
                     <b> Comments </b>
                     <br><br>
                     @if (count($post->comments) > 0)
@@ -57,7 +74,7 @@
                                 <small>{{ $comment->user->name }} ({{ $comment->created_at }})</small>
                             </div>
                             <div class="card-body">
-                                    @if (Auth::user()->id == $comment->user_id || Auth::user()->role_id == 1)
+                                    @if (Auth::user()->id == $comment->user_id || Auth::user()->role_id == 1 || Auth::user()->id == $post->user_id)
                                         <a href="/comments/{{$comment->id}}" style="float:left" class="btn btn-primary">Edit</a>
                                         <form method="POST" action="" >
                                             @csrf

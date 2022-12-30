@@ -32,10 +32,9 @@ Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update
 Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 
 Route::get('/comments', [CommentController::class, 'index'])->name('comments.index');
-Route::get('/comments/create', [CommentController::class, 'create'])->name('comments.create');
-Route::post('comments', [CommentController::class, 'store'])->name('comments.store');
+//Route::post('comments', [CommentController::class, 'store'])->name('comments.store');
 Route::get('/comments/{id}', [CommentController::class, 'show'])->name('comments.show');
-Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
+//Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
 
 Route::get('/dashboard', function () {
