@@ -62,8 +62,7 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        $comment = Comment::findOrFail($id);
-        return view('comments.show', ['comment' => $comment]);
+        //
     }
 
     /**
@@ -74,7 +73,7 @@ class CommentController extends Controller
      */
     public function edit($id)
     {
-        $comment = Comment::find($id);
+        $comment = Comment::findorFail($id);
         return view('comments.edit')->with('comment', $comment);
     }
 
@@ -85,21 +84,22 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
             'message' => 'required',
             'post_id' => 'required'
         ]);
 
+
         $post = Post::findorFail($validatedData['post_id']);
 
-            $comment = new Comment;
-            $comment->message = $validatedData['message'];
-            $comment->post_id = $post->id;
-            $comment->user_id = auth()->user()->id;
-            $comment->save();
-            return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'You have Edited the Comment');
+        $comment = Comment::findorFail($id);
+        $comment->message = $validatedData['message'];
+        $comment->post_id = $post->id;
+        $comment->user_id = auth()->user()->id;
+        $comment->save();
+        return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'You have edited your Comment');
 
     }
 

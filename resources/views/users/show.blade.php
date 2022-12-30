@@ -61,7 +61,7 @@
                         @foreach ($user->comments as $comment) 
                             <div class="card mb-3">
                                 <div class="card-header">
-                                    <li><a href='{{ route('posts.show', ['id' => $comment->post->id]) }}'>{{ $comment->message }} <small><font color="grey"> [Post Title: {{ $comment->post->title }} Post Author: {{ $comment->post->user->name }}]</font></small></li></a>
+                                    <li><a href='{{ route('posts.show', ['id' => $comment->post->id]) }}'>{{ $comment->message }} <small><font color="grey"> [Post Title: {{ $comment->post->title }} <a href='{{route('users.show', ['id' => $user->id])}}'>Post Author: {{ $comment->post->user->name }}]</font></small></li></a>
                                 </div>
                             </div> <br>
                         @endforeach 

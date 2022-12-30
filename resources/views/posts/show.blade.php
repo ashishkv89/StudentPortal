@@ -50,10 +50,13 @@
                     <b> Comment on the Post </b><br><br>
                     <form method="POST" action="{{ route('comments.store') }}" >
                         @csrf
-                        <div class="form-group">
+
+                        <div>
                             <input type="hidden" name="post_id" value="{{ $post->id }}">
-                            <textarea name="message" cols="50" rows="3" type="text" class="form-control" placeholder="Type your comment here"></textarea>
-                        </div><br>
+                            <x-text-input id="message" class="block mt-1 w-full" type="text" name="message" placeholder="Type your comment here" value="{{ old('message') }}" required />
+                            <x-input-error :messages="$errors->get('message')" class="mt-2" />
+                        </div> <br>
+
                         <x-secondary-button class="ml-0">
                             <input type="submit" value="SUBMIT">
                         </x-secondary-button>
@@ -74,22 +77,24 @@
                         <div class="card mb-3">
                             <div class="card-header">
                                 <p>{{ $comment->message }}</p>
-                                <small>{{ $comment->user->name }} ({{ $comment->created_at }})</small>
+                                <small><a href='{{route('users.show', ['id' => $comment->user->id])}}'>{{ $comment->user->name }}</a> ({{ $comment->created_at }})</small>
                             </div>
                             <div class="card-body">
+                                    @if (Auth::user()->id == $comment->user_id || Auth::user()->id == $post->user_id)
+                                        <a href="{{ route('comments.edit', ['id' => $comment->id]) }}" style="float:left" class="btn btn-primary">Edit</a>
+                                    @endif   
                                     @if (Auth::user()->id == $comment->user_id || Auth::user()->role_id == 1 || Auth::user()->id == $post->user_id)
-                                        <a href="/comments/{{$comment->id}}" style="float:left" class="btn btn-primary">Edit</a>
-                                        <form method="POST" action="{{ route('comments.destroy', ['id' => $comment->id]) }}" >
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="submit" style="float:right" value="Delete" class="btn btn-danger">
-                                        </form><br>
-                                    @endif                                
-                            </div>
+                                    <form method="POST" action="{{ route('comments.destroy', ['id' => $comment->id]) }}" >
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="submit" style="float:right" value="Delete" class="btn btn-danger">
+                                    </form>
+                                    @endif                             
+                            </div><br>
                         </div> <br>
                     @endforeach 
                     @else
-                        Be first to comment on this post
+                        Be first to comment on this post.
                     @endif
 
                 </div>

@@ -32,9 +32,10 @@ Route::get('/posts/edit/{id}', [PostController::class, 'edit'])->name('posts.edi
 Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
 Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 
-Route::get('/comments', [CommentController::class, 'index'])->name('comments.index');
+
 Route::post('/comments/store', [CommentController::class, 'store'])->name('comments.store');
-Route::get('/comments/{id}', [CommentController::class, 'show'])->name('comments.show');
+Route::get('/comments/{id}', [CommentController::class, 'edit'])->name('comments.edit');
+Route::put('/comments/{id}', [CommentController::class, 'update'])->name('comments.update');
 Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
 
