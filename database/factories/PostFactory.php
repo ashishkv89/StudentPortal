@@ -21,7 +21,7 @@ class PostFactory extends Factory
             'title' => fake()->realText(50),
             'description' => fake()->realText(200),
             'image' => fake()->bothify('images/#.jpg'),
-            'view_count' =>fake()->numberBetween(1, 10000),
+            'view_count' =>fake()->numberBetween(1, 1000),
             'user_id' => fake()->numberBetween(1, User::count()),
         ];
     }

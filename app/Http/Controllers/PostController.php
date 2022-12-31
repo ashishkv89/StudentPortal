@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Comment;
+use Auth;
 
 class PostController extends Controller
 {
@@ -75,8 +77,18 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
-        $post->increment('view_count');
-        return view('posts.show', ['post' => $post]);
+        if(! Auth::check()){
+            $cookie_name = (Str::replace('.','',($request->ip())).'-'. $post->id);
+            } else {
+                $cookie_name = (Auth::user()->id.'-'. $post->id);
+            }
+            if(Cookie::get($cookie_name) == ''){
+                $cookie = cookie($cookie_name, '1', 60);
+                $post->increment('view_count');
+                return response()->view('posts.show', ['post' => $post])->withCookie($cookie);
+            } else {
+                return view('posts.show', ['post' => $post]);
+            }
     }
 
     /**
