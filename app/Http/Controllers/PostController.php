@@ -42,6 +42,7 @@ class PostController extends Controller
             'title' => 'required',
             'description' => 'required',
             'image' => 'nullable | mimes:jpg,jpeg,png,gif',
+            'view_count' => 'required',
         ]);
 
         $imagePath=null;
@@ -57,6 +58,7 @@ class PostController extends Controller
         $post = new Post;
         $post->title = $validatedData['title'];
         $post->description = $validatedData['description'];
+        $post->view_count = $validatedData['view_count'];
         $post->image = $imagePath;
         $post->user_id = auth()->user()->id;
         $post->save();
@@ -73,6 +75,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
+        $post->increment('view_count');
         return view('posts.show', ['post' => $post]);
     }
 
@@ -105,9 +108,11 @@ class PostController extends Controller
                    'title' => 'required',
                   'description' => 'required',
                    'image' => 'nullable | mimes:jpg,jpeg,png,gif',
+                   'view_count' => 'required',
                ]);
                $post->title = $validatedData['title'];
                $post->description = $validatedData['description'];
+               $post->view_count = $validatedData['view_count'];
                $post->user_id = auth()->user()->id;
 
                if($request->hasFile('image'))
@@ -128,9 +133,11 @@ class PostController extends Controller
                 'title' => 'required',
                 'description' => 'required',
                 'image' => 'nullable | mimes:jpg,jpeg,png,gif',
+                'view_count' => 'required',
             ]);
             $post->title = $validatedData['title'];
             $post->description = $validatedData['description'];
+            $post->view_count = $validatedData['view_count'];
             $post->user_id = auth()->user()->id;
 
             if($request->hasFile('image'))

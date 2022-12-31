@@ -15,9 +15,12 @@
                         <li><big><b> {{$post->title}} </li></b></big><br>
                         <li> {{$post->description}} </li><br>
                         <li><b> Author: </b><a href='{{route('users.show', ['id' => $post->user_id])}}'>{{$post->user->name}} </a></li>
-                        <li><b> Created: </b>{{$post->created_at}} </li><br>   
+                        <li><b> Created: </b>{{$post->created_at}} </li>  
+                        @if (Auth::user()->id == $post->user_id || Auth::user()->role_id == 1)
+                            <li><b> Views: </b>{{$post->view_count}} </li>
+                        @endif    
                         @if ($post->image)
-                            <li> <img src="/storage/{{$post->image}}" width="250"> </li><br>  
+                            <br><li> <img src="/storage/{{$post->image}}" width="250"> </li><br>  
                         @endif
                     </ul>
 
