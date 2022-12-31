@@ -21,15 +21,15 @@ class LikeTableSeeder extends Seeder
         $posts = Post::all();
         foreach($posts as $post)
         {
-            $post->likes()->create(['count' => rand(0, 1000)]);
-            $post->likes()->create(['user_id' => rand(1, User::count())]);
+            $post->likes()->create(['count' => rand(0, 1000), 'user_id' => rand(1, User::count())]);
+        //    $post->likes()->create(['user_id' => rand(1, User::count())]);
         }
 
         $comments = Comment::all();
         foreach($comments as $comment)
         {
-            $comment->likes()->create(['count' => rand(0, 1000)]);
-            $comment->likes()->create(['user_id' => rand(1, User::count())]);
+            $comment->likes()->create(['count' => rand(0, 1000), 'user_id' => rand(1, User::count())]);
+        //    $comment->likes()->create(['user_id' => rand(1, User::count())]);
         }
     }
 }
