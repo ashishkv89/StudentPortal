@@ -65,7 +65,7 @@ class PostController extends Controller
         $post->user_id = auth()->user()->id;
         $post->save();
    
-        return redirect()->route('dashboard')->with('message', 'The Post is Created.');
+        return redirect()->route('dashboard')->with('success', 'The Post is Created.');
     }
 
     /**
@@ -137,7 +137,7 @@ class PostController extends Controller
                     $post->image = $imagePath;
                 }
                 $post->save();
-            return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'You have Edited the Post. (Own Post)');
+            return redirect()->route('posts.show', ['id' => $post->id])->with('success', 'You have Edited the Post. (Own Post)');
         }
         elseif (auth()->user()->role_id == 1) 
         {
@@ -162,11 +162,11 @@ class PostController extends Controller
                  $post->image = $imagePath;
              }
              $post->save();
-            return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'You have Edited the Post. (Teacher with Administrator Privilege)');
+            return redirect()->route('posts.show', ['id' => $post->id])->with('success', 'You have Edited the Post. (Teacher with Administrator Privilege)');
         }
         else 
         {
-            return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'Sorry, you do not have Access to Edit another student\'s Post.');
+            return redirect()->route('posts.show', ['id' => $post->id])->with('success', 'Sorry, you do not have Access to Edit another student\'s Post.');
         }
 
     }
@@ -183,15 +183,15 @@ class PostController extends Controller
         if(auth()->user()->id == $post->user_id)
         {
             $post->delete();
-            return redirect()->route('dashboard')->with('message', 'You have Deleted the Post. (Own Post)');
+            return redirect()->route('dashboard')->with('success', 'You have Deleted the Post. (Own Post)');
         }
         elseif (auth()->user()->role_id == 1) {
             $post->delete();
-            return redirect()->route('posts.index')->with('message', 'You have Deleted the Post. (Teacher with Administrator Privilege)');
+            return redirect()->route('posts.index')->with('success', 'You have Deleted the Post. (Teacher with Administrator Privilege)');
         }
         else 
         {
-            return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'Sorry, you do not have Access to Delete another student\'s Post.');
+            return redirect()->route('posts.show', ['id' => $post->id])->with('success', 'Sorry, you do not have Access to Delete another student\'s Post.');
         }
     }
 }

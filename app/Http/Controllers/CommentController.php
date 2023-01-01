@@ -51,7 +51,7 @@ class CommentController extends Controller
         $comment->user_id = auth()->user()->id;
         $comment->save();
    
-        return back()->with('message', 'Comment Added to Post.');
+        return back()->with('success', 'Comment Added to Post.');
     }
 
     /**
@@ -99,7 +99,7 @@ class CommentController extends Controller
         $comment->post_id = $post->id;
         $comment->user_id = auth()->user()->id;
         $comment->save();
-        return redirect()->route('posts.show', ['id' => $post->id])->with('message', 'You have edited your Comment');
+        return redirect()->route('posts.show', ['id' => $post->id])->with('success', 'You have edited your Comment');
 
     }
 
@@ -115,20 +115,20 @@ class CommentController extends Controller
         $post = $comment->post;
         if (auth()->user()->id == $post->user_id) {
             $comment->delete();
-            return back()->with('message', 'You have Deleted the Comment. (Own Post)');
+            return back()->with('success', 'You have Deleted the Comment. (Own Post)');
         }
         elseif(auth()->user()->id == $comment->user_id)
         {
             $comment->delete();
-            return back()->with('message', 'You have Deleted the Comment. (Own Comment)');
+            return back()->with('success', 'You have Deleted the Comment. (Own Comment)');
         }
         elseif (auth()->user()->role_id == 1) {
             $comment->delete();
-            return back()->with('message', 'You have Deleted the Comment. (Teacher with Administrator Privilege)');
+            return back()->with('success', 'You have Deleted the Comment. (Teacher with Administrator Privilege)');
         }
         else 
         {
-            return back()->with('message', 'Sorry, you do not have Access to Delete another student\'s Comment.');
+            return back()->with('success', 'Sorry, you do not have Access to Delete another student\'s Comment.');
         }
     }
 }

@@ -6,8 +6,8 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-
-    <div class="py-12">
+    @include('layouts.alert')
+    <div class="py-1">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
@@ -23,7 +23,7 @@
             </div>
         </div>
     </div>
-    <div class="py-0">
+    <div class="py-1">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
@@ -51,12 +51,13 @@
                                 <x-input-label for="image" :value="('Image')" />
                                         <input type="file" name="image" id="image" class="block mt-1 w-full">
                                         <x-input-error :messages="$errors->get('image')" class="mt-2" />
-                                </div> <br><br>
+                            </div> <br><br>
 
                             <x-primary-button class="ml-0">
                             <input type="submit" value="SUBMIT">
                             </x-primary-button>
                             <a href="{{ route('dashboard') }}"> Cancel</a>
+
                         </form>
                     </ul>
                 </div>
