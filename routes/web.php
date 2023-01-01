@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,11 @@ Route::post('/comments/store', [CommentController::class, 'store'])->name('comme
 Route::get('/comments/{id}', [CommentController::class, 'edit'])->name('comments.edit');
 Route::put('/comments/{id}', [CommentController::class, 'update'])->name('comments.update');
 Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
+Route::post('/posts/{post}/like', [LikeController::class, 'storePostLike'])->name('posts.like');
+Route::delete('/posts/{post}/unlike', [LikeController::class, 'destroyPostLike'])->name('posts.unlike');
+Route::post('/comments/{comment}/like', [CommentController::class, 'storeCommentLike'])->name('comments.like');
+Route::delete('/comments/{comment}/unlike', [CommentController::class, 'destroyCommentLike'])->name('comments.unlike');
 
 
 Route::get('/dashboard', function () {

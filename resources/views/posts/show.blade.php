@@ -52,6 +52,40 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    @if (!$post->likedBy(auth()->user()))
+                    <form action="{{ route('posts.like', $post->id) }}" class="like_post" method="post"
+                        id="like{{ $post->id }}">
+                        @csrf
+                        <x-secondary-button class="ml-0" type="submit">Like</x-secondary-button>
+                    </form>
+                    @else
+                    <form action="{{ route('posts.unlike', $post->id) }}" method="post" id="unlike{{ $post->id }}">
+                        @csrf
+                        @method('delete')
+                        <x-secondary-button class="ml-0" type="submit">UnLike</x-secondary-button>
+                    </form>
+                @endif
+
+                @if ($post->likes->count() > 0)
+                <span><b>
+                    {{ $post->likes->count() }}
+                    @if ($post->likes->count() > 1)
+                        Likes
+                    @else
+                        Like
+                    @endif
+                </b></span>
+                @endif
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="py-1">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
                     <b> Comment on the Post </b><br><br>
                     <form method="POST" action="{{ route('comments.store') }}" >
                         @csrf
@@ -75,7 +109,16 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <b> Comments </b>
+                @if ($post->comments->count() > 0)
+                <span><b>
+                    {{ $post->comments->count() }}
+                    @if ($post->comments->count() > 1)
+                        Comments
+                    @else
+                        Comment
+                    @endif
+                </b></span>
+                @endif
                     <br><br>
                     @if (count($post->comments) > 0)
                     @foreach ($post->comments as $comment) 

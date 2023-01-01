@@ -24,4 +24,9 @@ class Post extends Model
         return $this->morphMany(Like::class, 'likeable');
     }
 
+    public function likedBy(User $user)
+    {
+        return $this->likes->contains('user_id', $user->id);
+    }
+
 }
