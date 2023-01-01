@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
             
-            $table->bigInteger('count');
             $table->morphs('likeable'); 
 
             $table->unsignedBigInteger('user_id');

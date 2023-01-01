@@ -28,7 +28,7 @@ class UserTableSeeder extends Seeder
 
         $u = new User;
         $u->id = 2;
-        $u->name = 'Aadhya Ashish';
+        $u->name = "Aadhya Ashish";
         $u->email = "aadhyaashish18@gmail.com";
         $u->email_verified_at = now();
         $u->password = bcrypt("Password2");
@@ -39,7 +39,7 @@ class UserTableSeeder extends Seeder
 
         $u = new User;
         $u->id = 3;
-        $u->name = 'Aaryan Ashish';
+        $u->name = "Aaryan Ashish";
         $u->email = "aaryanashish20@gmail.com";
         $u->email_verified_at = now();
         $u->password = bcrypt("Password3");
