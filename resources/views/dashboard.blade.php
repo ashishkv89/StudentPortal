@@ -32,6 +32,8 @@
                         <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
                             @csrf
 
+                            <input type="hidden" name="view_count" value="{{ 0 }}">
+
                             <div>
                                 <x-input-label for="title" :value="('Title')" />
                                 <x-text-input id="title" class="block mt-1 w-full" type="text" name="title" value="{{ old('title') }}" required />
@@ -49,12 +51,12 @@
                                 <x-input-label for="image" :value="('Image')" />
                                         <input type="file" name="image" id="image" class="block mt-1 w-full">
                                         <x-input-error :messages="$errors->get('image')" class="mt-2" />
-                                    </div> <br><br>
+                                </div> <br><br>
 
                             <x-primary-button class="ml-0">
                             <input type="submit" value="SUBMIT">
                             </x-primary-button>
-                            <a href="{{ route('posts.index') }}"> Cancel</a>
+                            <a href="{{ route('dashboard') }}"> Cancel</a>
                         </form>
                     </ul>
                 </div>

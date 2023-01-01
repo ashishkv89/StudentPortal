@@ -37,7 +37,7 @@
                     </x-primary-button>
 
                     <x-primary-button class="ml-0">
-                        <p><a href="{{ route('posts.index') }}">BACK</a></p><br>
+                        <p><a href="{{ url()->previous() }}">BACK</a></p><br>
                     </x-primary-button>
                     <br>
 
