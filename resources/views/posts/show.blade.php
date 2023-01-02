@@ -9,7 +9,7 @@
 
     @include('layouts.alert')
 
-    <div class="py-2">
+    <div class="py-0">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    <div class="py-1">
+    <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
@@ -81,7 +81,7 @@
         </div>
     </div>
 
-    <div class="py-1">
+    <div class="py-0">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
@@ -104,7 +104,7 @@
         </div>
     </div>
 
-    <div class="py-1">
+    <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
@@ -117,24 +117,25 @@
                         Comment
                     @endif
                 </b></span>
+                <br><br>
                 @endif
-                    <br><br>
                     @if (count($post->comments) > 0)
                     @foreach ($post->comments as $comment) 
                         <div class="card mb-3">
                             <div class="card-header">
-                                <p><a href='{{route('users.show', ['id' => $comment->user->id])}}'>{{ $comment->user->name }}</a>: {{ $comment->message }}</p>
-                                <small>Created: ({{ $comment->created_at }})</small><br>
+                                <p><b><a href='{{route('users.show', ['id' => $comment->user->id])}}'>{{ $comment->user->name }}</b></a> : {{ $comment->message }}</p>
+                                <small>Created: ({{ $comment->created_at }})<br>
+                                <b>
                                 @if ($comment->likes->count() > 0)
-                                {{ $comment->likes->count() }}
-                                @if ($comment->likes->count() > 1)
-                                    Likes
-                                @else
-                                    Like
+                                    {{ $comment->likes->count() }}
+                                    @if ($comment->likes->count() > 1)
+                                        Likes
+                                    @else
+                                        Like
                                 @endif
                                 <br>
                             @endif
-
+                            </b></small>    
                             @if (!$comment->likedBy(auth()->user()))
                             <form method="POST" action="{{ route('comments.like', $comment->id) }}" style="margin:0px;float:left">
                                 @csrf
