@@ -53,12 +53,12 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     @if (!$post->likedBy(auth()->user()))
-                    <form action="{{ route('posts.like', $post->id) }}" method="post" id="like{{ $post->id }}">
+                    <form method="POST" action="{{ route('posts.like', $post->id) }}">
                         @csrf
                         <x-secondary-button class="ml-0" type="submit">Like</x-secondary-button>
                     </form>
                     @else
-                    <form action="{{ route('posts.unlike', $post->id) }}" method="post" id="unlike{{ $post->id }}">
+                    <form method="POST" action="{{ route('posts.unlike', $post->id) }}">
                         @csrf
                         @method('delete')
                         <x-secondary-button class="ml-0" type="submit">UnLike</x-secondary-button>
@@ -136,12 +136,12 @@
                             @endif
 
                             @if (!$comment->likedBy(auth()->user()))
-                            <form action="{{ route('comments.like', $comment->id) }}" method="post" style="margin:0px;float:left" id="like{{ $comment->id }}">
+                            <form method="POST" action="{{ route('comments.like', $comment->id) }}" style="margin:0px;float:left">
                                 @csrf
                                 <input type="submit" style="margin:5px;float:left" value="Like">
                             </form>
                             @else
-                            <form action="{{ route('comments.unlike', $comment->id) }}" method="post" style="margin:0px;float:left" id="unlike{{ $comment->id }}">
+                            <form method="POST" action="{{ route('comments.unlike', $comment->id) }}" style="margin:0px;float:left">
                                 @csrf
                                 @method('delete')
                                 <input type="submit" style="margin:5px;float:left" value="Unlike">
