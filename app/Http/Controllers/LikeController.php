@@ -102,7 +102,7 @@ class LikeController extends Controller
 
     public function destroyCommentLike(Post $comment, Request $request)
     {
-        Like::where('likeable_type', 'App\Models\Comment')->where('comment_id', $comment->id)->where('user_id', $request->user()->id)->delete();
+        Like::where('likeable_type', 'App\Models\Comment')->where('likeable_id', $comment->id)->where('user_id', $request->user()->id)->delete();
         return back();
     }    
 

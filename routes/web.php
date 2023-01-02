@@ -41,8 +41,8 @@ Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('co
 
 Route::post('/posts/{post}/like', [LikeController::class, 'storePostLike'])->name('posts.like');
 Route::delete('/posts/{post}/unlike', [LikeController::class, 'destroyPostLike'])->name('posts.unlike');
-Route::post('/comments/{comment}/like', [CommentController::class, 'storeCommentLike'])->name('comments.like');
-Route::delete('/comments/{comment}/unlike', [CommentController::class, 'destroyCommentLike'])->name('comments.unlike');
+Route::post('/comments/{comment}/like', [LikeController::class, 'storeCommentLike'])->name('comments.like');
+Route::delete('/comments/{comment}/unlike', [LikeController::class, 'destroyCommentLike'])->name('comments.unlike');
 
 
 Route::get('/dashboard', function () {

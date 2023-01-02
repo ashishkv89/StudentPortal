@@ -53,8 +53,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     @if (!$post->likedBy(auth()->user()))
-                    <form action="{{ route('posts.like', $post->id) }}" class="like_post" method="post"
-                        id="like{{ $post->id }}">
+                    <form action="{{ route('posts.like', $post->id) }}" method="post" id="like{{ $post->id }}">
                         @csrf
                         <x-secondary-button class="ml-0" type="submit">Like</x-secondary-button>
                     </form>
@@ -64,18 +63,18 @@
                         @method('delete')
                         <x-secondary-button class="ml-0" type="submit">UnLike</x-secondary-button>
                     </form>
-                @endif
-
-                @if ($post->likes->count() > 0)
-                <span><b>
-                    {{ $post->likes->count() }}
-                    @if ($post->likes->count() > 1)
-                        Likes
-                    @else
-                        Like
                     @endif
-                </b></span>
-                @endif
+
+                    @if ($post->likes->count() > 0)
+                        <span><b>
+                        {{ $post->likes->count() }}
+                        @if ($post->likes->count() > 1)
+                            Likes
+                        @else
+                            Like
+                        @endif
+                        </b></span>
+                    @endif
 
                 </div>
             </div>
@@ -124,20 +123,42 @@
                     @foreach ($post->comments as $comment) 
                         <div class="card mb-3">
                             <div class="card-header">
-                                <p>{{ $comment->message }}</p>
-                                <small><a href='{{route('users.show', ['id' => $comment->user->id])}}'>{{ $comment->user->name }}</a> ({{ $comment->created_at }})</small>
-                            </div>
-                            <div class="card-body">
-                                    @if (Auth::user()->id == $comment->user_id || Auth::user()->id == $post->user_id)
-                                        <a href="{{ route('comments.edit', ['id' => $comment->id]) }}" style="float:left" class="btn btn-primary">Edit</a>
-                                    @endif   
-                                    @if (Auth::user()->id == $comment->user_id || Auth::user()->role_id == 1 || Auth::user()->id == $post->user_id)
-                                    <form method="POST" action="{{ route('comments.destroy', ['id' => $comment->id]) }}" >
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="submit" style="float:right" value="Delete" class="btn btn-danger">
-                                    </form>
-                                    @endif                             
+                                <p><a href='{{route('users.show', ['id' => $comment->user->id])}}'>{{ $comment->user->name }}</a>: {{ $comment->message }}</p>
+                                <small>Created: ({{ $comment->created_at }})</small><br>
+                                @if ($comment->likes->count() > 0)
+                                {{ $comment->likes->count() }}
+                                @if ($comment->likes->count() > 1)
+                                    Likes
+                                @else
+                                    Like
+                                @endif
+                                <br>
+                            @endif
+
+                            @if (!$comment->likedBy(auth()->user()))
+                            <form action="{{ route('comments.like', $comment->id) }}" method="post" style="margin:0px;float:left" id="like{{ $comment->id }}">
+                                @csrf
+                                <input type="submit" style="margin:5px;float:left" value="Like">
+                            </form>
+                            @else
+                            <form action="{{ route('comments.unlike', $comment->id) }}" method="post" style="margin:0px;float:left" id="unlike{{ $comment->id }}">
+                                @csrf
+                                @method('delete')
+                                <input type="submit" style="margin:5px;float:left" value="Unlike">
+                            </form>
+                            @endif
+
+                            @if (Auth::user()->id == $comment->user_id || Auth::user()->id == $post->user_id)
+                                <a href="{{ route('comments.edit', ['id' => $comment->id]) }}" style="margin:5px;float:left">Edit</a>
+                            @endif   
+                            @if (Auth::user()->id == $comment->user_id || Auth::user()->role_id == 1 || Auth::user()->id == $post->user_id)
+                                <form method="POST" style="margin:0px;float:left" action="{{ route('comments.destroy', ['id' => $comment->id]) }}" >
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="submit" style="margin:5px;float:left" value="Delete">
+                                </form>
+                            @endif  
+            
                             </div><br>
                         </div> <br>
                     @endforeach 
