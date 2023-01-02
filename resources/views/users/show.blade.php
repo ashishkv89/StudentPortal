@@ -12,6 +12,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <ul>
+                        <b> User Details </b><br>
                         <li> Full Name: {{$user->name}}</li>
                         <li> Email ID: {{$user->email}}</li>
                         <li> Phone No: 
