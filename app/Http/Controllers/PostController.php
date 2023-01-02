@@ -183,7 +183,6 @@ class PostController extends Controller
         if(auth()->user()->id == $post->user_id)
         {
             $post->delete();
-            Like::where('likeable_type', 'App\Models\Post')->where('likeable_id', $post->id)->where('user_id', $request->user()->id)->delete();
             return redirect()->route('dashboard')->with('success', 'You have Deleted the Post. (Own Post)');
         }
         elseif (auth()->user()->role_id == 1) {
