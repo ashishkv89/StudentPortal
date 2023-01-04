@@ -27,16 +27,14 @@
                     <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                         {{ __('Users') }}
                     </x-nav-link>
-                </div>
+                </div> 
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('notifications.unread')" :active="request()->routeIs('notifications.unread')">
                         {{ __('Notifications') }}
                     </x-nav-link>
-                </div>
-            </div>
-
-            
+                </div> 
+            </div>            
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">

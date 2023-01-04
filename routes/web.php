@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,8 @@ Route::delete('/posts/{post}/unlike', [LikeController::class, 'destroyPostLike']
 Route::post('/comments/{comment}/like', [LikeController::class, 'storeCommentLike'])->name('comments.like');
 Route::delete('/comments/{comment}/unlike', [LikeController::class, 'destroyCommentLike'])->name('comments.unlike');
 
+Route::get('/notifications/unread', [NotificationController::class,'showNotification'])->name('notifications.unread');
+Route::put('/notifications/{id}/read/', [NotificationController::class,'markNotification'])->name('notifications.read');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

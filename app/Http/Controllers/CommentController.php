@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
+use App\Notifications\NewPostCommentNotification;
 
 class CommentController extends Controller
 {
@@ -50,7 +51,12 @@ class CommentController extends Controller
         $comment->post_id = $post->id;
         $comment->user_id = auth()->user()->id;
         $comment->save();
-   
+
+        if($comment->user_id != $post->user->id)
+        {
+            $post->user->notify(new NewPostCommentNotification($comment));
+        }
+
         return back()->with('success', 'Comment Added to Post.');
     }
 
