@@ -31,7 +31,7 @@
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('notifications.unread')" :active="request()->routeIs('notifications.unread')">
-                        {{ __('Notifications') }}
+                        {{ __('Notifications') }} ({{Auth::user()->unreadNotifications->count()}})
                     </x-nav-link>
                 </div> 
             </div>            

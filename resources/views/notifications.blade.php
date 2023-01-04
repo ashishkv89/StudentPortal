@@ -17,6 +17,7 @@
                     <br><br>
                     <div class="dropdown-menu dropdown-menu-right" role="alert" aria-labelledby="navbarDropdownMenuLink">
                         @if ($notifications->count() > 0 )
+                        <hr>
                         @foreach($notifications as $notification)
                         <form method="post" action="{{ route('notifications.read', ['id' => Auth::user()->id]) }}">
                             <div class="alert alert-light" role="alert">
