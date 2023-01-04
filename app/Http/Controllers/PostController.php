@@ -98,9 +98,17 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        $post = Post::find($id);
-        return view('posts.edit')->with('post', $post);
+    {   
+        $post = Post::findOrFail($id);
+        if(auth()->user()->id == $post->user_id || auth()->user()->role_id == 1)
+        {
+            return view('posts.edit')->with('post', $post);
+        }
+        else 
+        {
+            return redirect()->route('posts.show', ['id' => $post->id])->with('success', 'Sorry, you do not have Access to Edit another student\'s Post.');
+        }
+        
     }
 
     /**
@@ -164,11 +172,6 @@ class PostController extends Controller
              $post->save();
             return redirect()->route('posts.show', ['id' => $post->id])->with('success', 'You have Edited the Post. (Teacher with Administrator Privilege)');
         }
-        else 
-        {
-            return redirect()->route('posts.show', ['id' => $post->id])->with('success', 'Sorry, you do not have Access to Edit another student\'s Post.');
-        }
-
     }
 
     /**
