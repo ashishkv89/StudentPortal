@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('personal_information', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
-            $table->longText('title');
-            $table->longText('description');
-            $table->string('image')->nullable();
-            $table->bigInteger('view_count');
+            $table->date('date_of_birth')->nullable();
+            $table->string('address')->nullable();
+            $table->string('emergency_contact_name')->nullable();
+            $table->string('emergency_contact_phone')->nullable();
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('personal_information');
     }
 };
