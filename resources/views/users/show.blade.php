@@ -22,7 +22,7 @@
                                 Unknown
                             @endif  
                         <li> Role : {{$user->role->name}} </li>    
-                        @if(Auth::user()->role->id == 1)
+                        @if(Auth::user()->role->id == 1 || Auth::user() == $user)
                         </li><br><hr><br>                          
                         <b> Personal Information </b><br>
                         <li> Date of Birth : {{$user->personalInformation->date_of_birth}} </li>
