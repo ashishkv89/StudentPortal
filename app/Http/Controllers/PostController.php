@@ -8,6 +8,8 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Comment;
 use Auth;
+use App\Notifications\NewPostEditNotification;
+use App\Notifications\NewPostDeleteNotification;
 
 class PostController extends Controller
 {
@@ -77,18 +79,22 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
-        if(! Auth::check()){
+        if(! Auth::check())
+        {
             $cookie_name = (Str::replace('.','',($request->ip())).'-'. $post->id);
-            } else {
+        } else 
+        {
                 $cookie_name = (Auth::user()->id.'-'. $post->id);
-            }
-            if(Cookie::get($cookie_name) == ''){
-                $cookie = cookie($cookie_name, '1', 60);
-                $post->increment('view_count');
-                return response()->view('posts.show', ['post' => $post])->withCookie($cookie);
-            } else {
-                return view('posts.show', ['post' => $post]);
-            }
+        }
+        if(Cookie::get($cookie_name) == '')
+        {
+            $cookie = cookie($cookie_name, '1', 60);
+            $post->increment('view_count'); 
+            return response()->view('posts.show', ['post' => $post])->withCookie($cookie);
+        } else 
+        { 
+            return view('posts.show', ['post' => $post]);
+        }  
     }
 
     /**
@@ -151,14 +157,13 @@ class PostController extends Controller
         {
             $validatedData = $request->validate([
                 'title' => 'required',
-                'description' => 'required',
+               'description' => 'required',
                 'image' => 'nullable | mimes:jpg,jpeg,png,gif',
                 'view_count' => 'required',
             ]);
             $post->title = $validatedData['title'];
             $post->description = $validatedData['description'];
             $post->view_count = $validatedData['view_count'];
-            $post->user_id = auth()->user()->id;
 
             if($request->hasFile('image'))
             {
@@ -169,7 +174,10 @@ class PostController extends Controller
                  $imagePath = $request->file('image')->storeAs('images', $filenameToSave, 'public');
                  $post->image = $imagePath;
              }
-             $post->save();
+            $post->save();
+
+            $post->user->notify(new NewPostEditNotification($post));
+
             return redirect()->route('posts.show', ['id' => $post->id])->with('success', 'You have Edited the Post. (Teacher with Administrator Privilege)');
         }
     }
@@ -190,6 +198,7 @@ class PostController extends Controller
         }
         elseif (auth()->user()->role_id == 1) {
             $post->delete();
+            $post->user->notify(new NewPostDeleteNotification($post));
             return redirect()->route('posts.index')->with('success', 'You have Deleted the Post. (Teacher with Administrator Privilege)');
         }
         else 

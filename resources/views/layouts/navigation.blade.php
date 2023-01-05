@@ -31,10 +31,16 @@
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('notifications.unread')" :active="request()->routeIs('notifications.unread')">
-                        {{ __('Notifications') }} ({{Auth::user()->unreadNotifications->count()}})
+                        @if(Auth::user()->unreadNotifications->count() == 1)
+                            <b>{{Auth::user()->unreadNotifications->count()}} Unread {{ __('Notification') }}</b> 
+                        @elseif(Auth::user()->unreadNotifications->count() > 1)
+                            <b>{{Auth::user()->unreadNotifications->count()}} Unread {{ __('Notifications') }}</b> 
+                            @else
+                            {{ __('No Notifications') }}
+                        @endif                 
                     </x-nav-link>
                 </div> 
-            </div>            
+            </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">

@@ -8,19 +8,19 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Auth;
 
-class NewPostCommentNotification extends Notification
+class NewPostEditNotification extends Notification
 {
     use Queueable;
-    public $comment;
+    public $post;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($comment)
+    public function __construct($post)
     {
-        $this->comment = $comment;
+        $this->post = $post;
     }
 
     /**
@@ -40,13 +40,13 @@ class NewPostCommentNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toDatabase($notifiable)
+    public function toArray($notifiable)
     {
         return [
             'name' => Auth::user()->name,
             'role' => Auth::user()->role->name,
-            'text' => "commented on your post with title",
-            'post' => $this->comment->post->title,
+            'text' => "edited your post with title",
+            'post' => $this->post->title,
         ];
     }
 }

@@ -21,7 +21,7 @@
                         @foreach($notifications as $notification)
                         <form method="post" action="{{ route('notifications.read', ['id' => Auth::user()->id]) }}">
                             <div class="alert alert-light" role="alert">
-                            <br><p class="dropdown-item"><b> {{ $notification->data['name'] }} </b>commented on your post <b>{{ $notification->data['post'] }}.</b></p><br>
+                            <br><p class="dropdown-item"><b>{{ $notification->data['name'] }}</b>[{{ $notification->data['role'] }}] {{ $notification->data['text'] }} <b>{{ $notification->data['post'] }}</b> <small>[{{ $notification->created_at }}]</small>.</p><br>
                             @csrf
                             @method('PUT')
                             </div>
