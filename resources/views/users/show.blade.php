@@ -13,17 +13,23 @@
                 <div class="p-6 text-gray-900">
                     <ul>
                         <b> User Details </b><br>
-                        <li> Full Name: {{$user->name}}</li>
-                        <li> Email ID: {{$user->email}}</li>
-                        <li> Phone No: 
+                        <li> Full Name : {{$user->name}}</li>
+                        <li> Email ID : {{$user->email}}</li>
+                        <li> Phone No : 
                             @if ($user->phone)
                                 {{$user->phone}}             
                             @else
                                 Unknown
-                            @endif                              
-                        </li>                           
-                        </li>
-                        <li> Role: {{$user->role->name}} </li>   
+                            @endif  
+                        <li> Role : {{$user->role->name}} </li>    
+                        @if(Auth::user()->role->id == 1)
+                        </li><br><hr><br>                          
+                        <b> Personal Information </b><br>
+                        <li> Date of Birth : {{$user->personalInformation->date_of_birth}} </li>
+                        <li> Address : {{$user->personalInformation->address}} </li>
+                        <li> Emergency Contact Name : {{$user->personalInformation->emergency_contact_name}} </li>
+                        <li> Emergency Contact Phone : {{$user->personalInformation->emergency_contact_phone}} </li>
+                        @endif
                     </ul>
                 </div>
             </div>
