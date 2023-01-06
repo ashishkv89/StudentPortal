@@ -134,7 +134,7 @@ class CommentController extends Controller
         }
         else 
         {
-            return back()->with('success', 'Sorry, you do not have Access to Delete another student\'s Comment.');
+            return back()->with('success', 'Sorry, you do not have Access to Delete another user\'s Comment.');
         }
     }
 }

@@ -112,7 +112,7 @@ class PostController extends Controller
         }
         else 
         {
-            return redirect()->route('posts.show', ['id' => $post->id])->with('success', 'Sorry, you do not have Access to Edit another student\'s Post.');
+            return redirect()->route('posts.show', ['id' => $post->id])->with('success', 'Sorry, you do not have Access to Edit another user\'s Post.');
         }
         
     }
@@ -203,7 +203,7 @@ class PostController extends Controller
         }
         else 
         {
-            return redirect()->route('posts.show', ['id' => $post->id])->with('success', 'Sorry, you do not have Access to Delete another student\'s Post.');
+            return redirect()->route('posts.show', ['id' => $post->id])->with('success', 'Sorry, you do not have Access to Delete another user\'s Post.');
         }
     }
 }
