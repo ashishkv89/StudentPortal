@@ -64,3 +64,7 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Follow below link to set up laravel in Windows using Docker Desktop & WSL2
+
+https://laravel.tutorials24x7.com/blog/getting-started-with-laravel-on-windows-using-docker-desktop-and-wsl2
